@@ -30,6 +30,24 @@ namespace DataLayer
             }
 
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Dyr>().HasData(
+                new Dyr { DyrId = 1, Antal = 0, Navn = "Elefant" },
+                new Dyr { DyrId = 2, Antal = 0, Navn = "Abe" },
+                new Dyr { DyrId = 3, Antal = 0, Navn = "Tiger" },
+                new Dyr { DyrId = 4, Antal = 0, Navn = "Løve" },
+                new Dyr { DyrId = 5, Antal = 0, Navn = "Flodhest" },
+                new Dyr { DyrId = 6, Antal = 0, Navn = "Dovendyr" }
+                );
+
+            modelBuilder.Entity<Kunder>().HasData(
+                new Kunder { KundeId = 1, Navn = "Famile", Antal = 0 },
+                new Kunder { KundeId = 2, Navn = "Par", Antal = 0 },
+                new Kunder { KundeId = 3, Navn = "Unge", Antal = 0 }
+                );
+        }
     }
    
 }
