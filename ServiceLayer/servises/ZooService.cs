@@ -21,10 +21,9 @@ namespace ServiceLayer.servises
             _ctx = ctx;
         }
 
-        public User NewUser(string Navn)
+        public User NewUser(string Navn, string NyId)
         {
-            Guid obj = Guid.NewGuid();
-            string NyId = obj.ToString();
+            
             User newUser = new User()
             {
                 UserId = NyId,
