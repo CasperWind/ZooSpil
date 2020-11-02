@@ -10,8 +10,7 @@ namespace DataLayer.Entitys
         [Key]
         public int KundeId { get; set; }
         public string Navn { get; set; }
-        public int Antal { get; set; }
 
-        public User User { get; set; }
+        public ICollection<UserKunder> UserKunders { get; set; }
     }
 }

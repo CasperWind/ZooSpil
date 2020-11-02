@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(ZooContext))]
-    [Migration("20201030124153_DataSeed")]
-    partial class DataSeed
+    [Migration("20201102113416_tabeleraddede")]
+    partial class tabeleraddede
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,18 +28,10 @@ namespace DataLayer.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Antal")
-                        .HasColumnType("int");
-
                     b.Property<string>("Navn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("DyrId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Dyrs");
 
@@ -47,37 +39,31 @@ namespace DataLayer.Migrations
                         new
                         {
                             DyrId = 1,
-                            Antal = 0,
                             Navn = "Elefant"
                         },
                         new
                         {
                             DyrId = 2,
-                            Antal = 0,
                             Navn = "Abe"
                         },
                         new
                         {
                             DyrId = 3,
-                            Antal = 0,
                             Navn = "Tiger"
                         },
                         new
                         {
                             DyrId = 4,
-                            Antal = 0,
                             Navn = "Løve"
                         },
                         new
                         {
                             DyrId = 5,
-                            Antal = 0,
                             Navn = "Flodhest"
                         },
                         new
                         {
                             DyrId = 6,
-                            Antal = 0,
                             Navn = "Dovendyr"
                         });
                 });
@@ -89,18 +75,10 @@ namespace DataLayer.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Antal")
-                        .HasColumnType("int");
-
                     b.Property<string>("Navn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("KundeId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Kunders");
 
@@ -108,35 +86,24 @@ namespace DataLayer.Migrations
                         new
                         {
                             KundeId = 1,
-                            Antal = 0,
                             Navn = "Famile"
                         },
                         new
                         {
                             KundeId = 2,
-                            Antal = 0,
                             Navn = "Par"
                         },
                         new
                         {
                             KundeId = 3,
-                            Antal = 0,
                             Navn = "Unge"
                         });
                 });
 
             modelBuilder.Entity("DataLayer.Entitys.User", b =>
                 {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("DyrID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("KundeID")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Navn")
                         .HasColumnType("nvarchar(max)");
@@ -149,18 +116,71 @@ namespace DataLayer.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("DataLayer.Entitys.Dyr", b =>
+            modelBuilder.Entity("DataLayer.Entitys.UserDyr", b =>
                 {
-                    b.HasOne("DataLayer.Entitys.User", "User")
-                        .WithMany("Dyrs")
-                        .HasForeignKey("UserId");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("DyrId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Antal")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "DyrId");
+
+                    b.HasIndex("DyrId");
+
+                    b.ToTable("UserDyrs");
                 });
 
-            modelBuilder.Entity("DataLayer.Entitys.Kunder", b =>
+            modelBuilder.Entity("DataLayer.Entitys.UserKunder", b =>
                 {
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("KundeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Antal")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("KunderKundeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserID", "KundeId");
+
+                    b.HasIndex("KunderKundeId");
+
+                    b.ToTable("UserKunders");
+                });
+
+            modelBuilder.Entity("DataLayer.Entitys.UserDyr", b =>
+                {
+                    b.HasOne("DataLayer.Entitys.Dyr", "Dyr")
+                        .WithMany("UserDyrs")
+                        .HasForeignKey("DyrId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DataLayer.Entitys.User", "User")
-                        .WithMany("Kunders")
-                        .HasForeignKey("UserId");
+                        .WithMany("userDyrs")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DataLayer.Entitys.UserKunder", b =>
+                {
+                    b.HasOne("DataLayer.Entitys.Kunder", "Kunder")
+                        .WithMany("UserKunders")
+                        .HasForeignKey("KunderKundeId");
+
+                    b.HasOne("DataLayer.Entitys.User", "User")
+                        .WithMany("UserKunders")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

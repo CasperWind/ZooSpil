@@ -8,8 +8,9 @@ namespace DataLayer.Entitys
     {
         public int DyrId { get; set; }
         public string Navn { get; set; }
-        public int Antal { get; set; }
+        public decimal Pris { get; set; }
 
-        public User User { get; set; }
+
+        public ICollection<UserDyr> UserDyrs { get; set; }
     }
 }

@@ -4,14 +4,16 @@ using DataLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(ZooContext))]
-    partial class ZooContextModelSnapshot : ModelSnapshot
+    [Migration("20201102112142_MangeTIlMange")]
+    partial class MangeTIlMange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,9 +31,6 @@ namespace DataLayer.Migrations
                     b.Property<string>("Navn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Pris")
-                        .HasColumnType("decimal(18,2)");
-
                     b.HasKey("DyrId");
 
                     b.ToTable("Dyrs");
@@ -40,38 +39,32 @@ namespace DataLayer.Migrations
                         new
                         {
                             DyrId = 1,
-                            Navn = "Elefant",
-                            Pris = 10000m
+                            Navn = "Elefant"
                         },
                         new
                         {
                             DyrId = 2,
-                            Navn = "Abe",
-                            Pris = 10000m
+                            Navn = "Abe"
                         },
                         new
                         {
                             DyrId = 3,
-                            Navn = "Tiger",
-                            Pris = 10000m
+                            Navn = "Tiger"
                         },
                         new
                         {
                             DyrId = 4,
-                            Navn = "Løve",
-                            Pris = 10000m
+                            Navn = "Løve"
                         },
                         new
                         {
                             DyrId = 5,
-                            Navn = "Flodhest",
-                            Pris = 10000m
+                            Navn = "Flodhest"
                         },
                         new
                         {
                             DyrId = 6,
-                            Navn = "Dovendyr",
-                            Pris = 10000m
+                            Navn = "Dovendyr"
                         });
                 });
 
@@ -138,7 +131,7 @@ namespace DataLayer.Migrations
 
                     b.HasIndex("DyrId");
 
-                    b.ToTable("UserDyrs");
+                    b.ToTable("UserDyr");
                 });
 
             modelBuilder.Entity("DataLayer.Entitys.UserKunder", b =>
@@ -159,7 +152,7 @@ namespace DataLayer.Migrations
 
                     b.HasIndex("KunderKundeId");
 
-                    b.ToTable("UserKunders");
+                    b.ToTable("UserKunder");
                 });
 
             modelBuilder.Entity("DataLayer.Entitys.UserDyr", b =>
