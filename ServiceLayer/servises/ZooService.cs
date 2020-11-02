@@ -10,6 +10,10 @@ namespace ServiceLayer.servises
 {
     public class ZooService : IZooService
     {
+        public ZooService()
+        {
+
+        }
 
         private readonly ZooContext _ctx;
         public ZooService(ZooContext ctx)
@@ -91,15 +95,20 @@ namespace ServiceLayer.servises
 
             foreach (var item in antalKunder)
             {
-                if (item.Antal != 0)
-                {
-                    alleKunder += item.Antal;
-                }
+                alleKunder += item.Antal;
             }
 
             decimal belob = startPenge * alleKunder;
             return belob;
 
+        }
+        public bool TjekOmKanKoobe(User user, Dyr dyr)
+        {
+            if (user.Penge >= dyr.Pris)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
