@@ -128,10 +128,10 @@ namespace DataLayer.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("DyrId")
+                    b.Property<int?>("DyrId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Antal")
+                    b.Property<int?>("Antal")
                         .HasColumnType("int");
 
                     b.HasKey("UserId", "DyrId");
@@ -146,10 +146,10 @@ namespace DataLayer.Migrations
                     b.Property<string>("UserID")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("KundeId")
+                    b.Property<int?>("KundeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Antal")
+                    b.Property<int?>("Antal")
                         .HasColumnType("int");
 
                     b.Property<int?>("KunderKundeId")

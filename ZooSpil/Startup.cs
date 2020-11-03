@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using DataLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +31,7 @@ namespace ZooSpil
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddScoped<ZooContext>();
             services.AddSingleton<WeatherForecastService>();
             services.AddScoped<IZooService, ZooService>();
         }

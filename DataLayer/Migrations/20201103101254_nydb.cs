@@ -2,7 +2,7 @@
 
 namespace DataLayer.Migrations
 {
-    public partial class MangeTIlMange : Migration
+    public partial class nydb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,8 @@ namespace DataLayer.Migrations
                 {
                     DyrId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Navn = table.Column<string>(nullable: true)
+                    Navn = table.Column<string>(nullable: true),
+                    Pris = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -46,24 +47,24 @@ namespace DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserDyr",
+                name: "UserDyrs",
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
                     DyrId = table.Column<int>(nullable: false),
-                    Antal = table.Column<int>(nullable: false)
+                    Antal = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserDyr", x => new { x.UserId, x.DyrId });
+                    table.PrimaryKey("PK_UserDyrs", x => new { x.UserId, x.DyrId });
                     table.ForeignKey(
-                        name: "FK_UserDyr_Dyrs_DyrId",
+                        name: "FK_UserDyrs_Dyrs_DyrId",
                         column: x => x.DyrId,
                         principalTable: "Dyrs",
                         principalColumn: "DyrId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserDyr_Users_UserId",
+                        name: "FK_UserDyrs_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
@@ -71,25 +72,25 @@ namespace DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserKunder",
+                name: "UserKunders",
                 columns: table => new
                 {
                     UserID = table.Column<string>(nullable: false),
                     KundeId = table.Column<int>(nullable: false),
-                    Antal = table.Column<int>(nullable: false),
+                    Antal = table.Column<int>(nullable: true),
                     KunderKundeId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserKunder", x => new { x.UserID, x.KundeId });
+                    table.PrimaryKey("PK_UserKunders", x => new { x.UserID, x.KundeId });
                     table.ForeignKey(
-                        name: "FK_UserKunder_Kunders_KunderKundeId",
+                        name: "FK_UserKunders_Kunders_KunderKundeId",
                         column: x => x.KunderKundeId,
                         principalTable: "Kunders",
                         principalColumn: "KundeId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_UserKunder_Users_UserID",
+                        name: "FK_UserKunders_Users_UserID",
                         column: x => x.UserID,
                         principalTable: "Users",
                         principalColumn: "UserId",
@@ -98,15 +99,15 @@ namespace DataLayer.Migrations
 
             migrationBuilder.InsertData(
                 table: "Dyrs",
-                columns: new[] { "DyrId", "Navn" },
+                columns: new[] { "DyrId", "Navn", "Pris" },
                 values: new object[,]
                 {
-                    { 1, "Elefant" },
-                    { 2, "Abe" },
-                    { 3, "Tiger" },
-                    { 4, "Løve" },
-                    { 5, "Flodhest" },
-                    { 6, "Dovendyr" }
+                    { 1, "Elefant", 10000m },
+                    { 2, "Abe", 10000m },
+                    { 3, "Tiger", 10000m },
+                    { 4, "Løve", 10000m },
+                    { 5, "Flodhest", 10000m },
+                    { 6, "Dovendyr", 10000m }
                 });
 
             migrationBuilder.InsertData(
@@ -120,23 +121,23 @@ namespace DataLayer.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserDyr_DyrId",
-                table: "UserDyr",
+                name: "IX_UserDyrs_DyrId",
+                table: "UserDyrs",
                 column: "DyrId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserKunder_KunderKundeId",
-                table: "UserKunder",
+                name: "IX_UserKunders_KunderKundeId",
+                table: "UserKunders",
                 column: "KunderKundeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "UserDyr");
+                name: "UserDyrs");
 
             migrationBuilder.DropTable(
-                name: "UserKunder");
+                name: "UserKunders");
 
             migrationBuilder.DropTable(
                 name: "Dyrs");

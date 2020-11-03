@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(ZooContext))]
-    [Migration("20201102113416_tabeleraddede")]
-    partial class tabeleraddede
+    [Migration("20201103101254_nydb")]
+    partial class nydb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,6 +31,9 @@ namespace DataLayer.Migrations
                     b.Property<string>("Navn")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Pris")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("DyrId");
 
                     b.ToTable("Dyrs");
@@ -39,32 +42,38 @@ namespace DataLayer.Migrations
                         new
                         {
                             DyrId = 1,
-                            Navn = "Elefant"
+                            Navn = "Elefant",
+                            Pris = 10000m
                         },
                         new
                         {
                             DyrId = 2,
-                            Navn = "Abe"
+                            Navn = "Abe",
+                            Pris = 10000m
                         },
                         new
                         {
                             DyrId = 3,
-                            Navn = "Tiger"
+                            Navn = "Tiger",
+                            Pris = 10000m
                         },
                         new
                         {
                             DyrId = 4,
-                            Navn = "Løve"
+                            Navn = "Løve",
+                            Pris = 10000m
                         },
                         new
                         {
                             DyrId = 5,
-                            Navn = "Flodhest"
+                            Navn = "Flodhest",
+                            Pris = 10000m
                         },
                         new
                         {
                             DyrId = 6,
-                            Navn = "Dovendyr"
+                            Navn = "Dovendyr",
+                            Pris = 10000m
                         });
                 });
 
@@ -121,10 +130,10 @@ namespace DataLayer.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("DyrId")
+                    b.Property<int?>("DyrId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Antal")
+                    b.Property<int?>("Antal")
                         .HasColumnType("int");
 
                     b.HasKey("UserId", "DyrId");
@@ -139,10 +148,10 @@ namespace DataLayer.Migrations
                     b.Property<string>("UserID")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("KundeId")
+                    b.Property<int?>("KundeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Antal")
+                    b.Property<int?>("Antal")
                         .HasColumnType("int");
 
                     b.Property<int?>("KunderKundeId")

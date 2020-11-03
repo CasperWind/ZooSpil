@@ -1,0 +1,34 @@
+﻿@page "/NytNavn"
+@inject ServiceLayer.servises.IZooService zooService
+@inject NavigationManager navigationManager
+<h3>NyZooNavn</h3>
+
+<div class="container">
+    <div>
+        <h1>Velkomme</h1>
+        <p>Du skal til at begynde din helt egen Zoo.</p>
+        <p>Hvad skal snvnet være på din zoo?</p>
+        <input type="text" @bind="ZooNavn" />
+        <button class="btn btn-primary" @onclick="LavNyUser">Lav Zooen</button>
+    </div>
+</div>
+
+
+
+@code {
+
+    public string ZooNavn { get; set; }
+
+
+    public void LavNyUser()
+    {
+        Guid obj = Guid.NewGuid();
+        var getNewUser = zooService.NewUser(ZooNavn, obj.ToString());
+        if ( getNewUser != null)
+        {
+            string sendId = getNewUser.UserId;
+            navigationManager.NavigateTo("/Zoo/" + sendId);
+        }
+
+    }
+}

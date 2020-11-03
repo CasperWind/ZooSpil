@@ -1,0 +1,28 @@
+﻿@page "/zoo/{userId}"
+@inject ServiceLayer.servises.IZooService zooService
+@inject NavigationManager navigationManager
+<h3>Zoo</h3>
+@if (IndlæsUser() != false)
+{
+   @User.Navn;
+   @User.Penge.ToString("c");
+}
+
+
+@code {
+    [Parameter]
+    public string UserId { get; set; }
+
+    public DataLayer.Entitys.User User { get; set; }
+
+    public bool IndlæsUser()
+    {
+        User = zooService.LoadUser(UserId);
+        if (User != null)
+        {
+            return true;
+        }
+        return false;
+
+    }
+}

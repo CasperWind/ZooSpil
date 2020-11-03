@@ -1,18 +1,37 @@
 ﻿@page "/"
+@inject NavigationManager navigationManager
 
-<h1>Hello, world!</h1>
+<div class="container">
+    <div class="row">
+        <div class="centerlortet">
+            <h1>Velkommen til <b>Zoo Tycoon</b></h1>
+        </div>
+    </div>  
+</div>
 
-@ID
+<div class="container">
+    <div class="row">
+        <div class="col-6">            
+            <button class="btn btn-primary" @onclick="test">Ny Zoo</button>
+        </div>
+        <div class="col-6">
+            <button class="btn btn-primary" @onclick="test">Load Zoo</button>
+        </div>
+    </div>
+</div>
 
-<button @onclick="test">ID!</button>
+
+
 
 
 
 @code {
+
     public string ID { get; set; }
     public void test()
     {
-        Guid obj = Guid.NewGuid();
-        ID = obj.ToString();
+
+        navigationManager.NavigateTo("/NytNavn");
+        //Guid obj = Guid.NewGuid();
     }
 }

@@ -181,3 +181,6 @@ app {
         display: block;
     }
 }
+.centerlortet {
+    text-align: center !important;
+}
