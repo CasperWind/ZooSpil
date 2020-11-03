@@ -1,21 +1,22 @@
 ﻿@page "/"
 @inject NavigationManager navigationManager
+@inject IJSRuntime JS
 
 <div class="container">
     <div class="row">
         <div class="centerlortet">
             <h1>Velkommen til <b>Zoo Tycoon</b></h1>
         </div>
-    </div>  
+    </div>
 </div>
 
 <div class="container">
     <div class="row">
-        <div class="col-6">            
-            <button class="btn btn-primary" @onclick="test">Ny Zoo</button>
+        <div class="col-6">
+            <button class="btn btn-primary" @onclick="NyZoo">Ny Zoo</button>
         </div>
         <div class="col-6">
-            <button class="btn btn-primary" @onclick="test">Load Zoo</button>
+            <button disabled="@IsDisabled" class="btn btn-primary" @onclick="ReadCookieAsync">Load Zoo</button>
         </div>
     </div>
 </div>
@@ -28,10 +29,34 @@
 @code {
 
     public string ID { get; set; }
-    public void test()
-    {
 
+    public bool IsDisabled = true; 
+
+    public void NyZoo()
+    {
         navigationManager.NavigateTo("/NytNavn");
-        //Guid obj = Guid.NewGuid();
     }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        ID = await JS.InvokeAsync<string>("jvjBlazorExtensions.ReadCookie", "ZooId");
+        if (!string.IsNullOrEmpty(ID))
+        {
+            IsDisabled = false;
+        }
+       
+    }
+
+    public async Task<string> ReadCookieAsync()
+    {
+        ID = await JS.InvokeAsync<string>("jvjBlazorExtensions.ReadCookie", "ZooId");
+        if (!string.IsNullOrEmpty(ID))
+        {
+            navigationManager.NavigateTo("/Zoo/" + ID);
+            return "OK";
+        }
+        return "NEJ";
+
+    }
+
 }

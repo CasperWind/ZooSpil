@@ -1,20 +1,57 @@
 ﻿@page "/zoo/{userId}"
 @inject ServiceLayer.servises.IZooService zooService
 @inject NavigationManager navigationManager
-@OnInitializedAsync()
+@inject ServiceLayer.servises.IZooService zooService
+@using System.Threading;
+
 <h3>Zoo</h3>
 
-
+@AntalPenge
 
 @code {
     [Parameter]
     public string UserId { get; set; }
 
     public DataLayer.Entitys.User User { get; set; }
+    #region Penge
 
-  
+    decimal? AntalPenge { get; set; }
+
+    TimeSpan PengeTid;
+    TimeSpan defaultTid = new TimeSpan(0, 0, 1);
+    Timer PengeTimer;
+    #endregion
+
+
+
+
     protected override void OnInitialized()
     {
         User = zooService.LoadUser(UserId);
+
+
+    }
+
+    private Task<int> StartTimer()
+    {
+
+        AntalPenge = User.Penge;
+
+        PengeTid = defaultTid;
+
+        PengeTimer = new Timer((_) =>
+        {
+            PengeTid = PengeTid.Add(new TimeSpan(0, 0, -1));
+
+            InvokeAsync(() =>
+            {
+                StateHasChanged();
+                AntalPenge = zooService.UpdatePenge(User);
+
+            });
+        });
+
+        PengeTimer.Change(0, 1000);
+        
     }
 }

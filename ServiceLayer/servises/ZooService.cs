@@ -10,10 +10,7 @@ namespace ServiceLayer.servises
 {
     public class ZooService : IZooService
     {
-        //public ZooService()
-        //{
-
-        //}
+        
 
         private readonly ZooContext _ctx;
         public ZooService(ZooContext ctx)
@@ -86,15 +83,18 @@ namespace ServiceLayer.servises
             _ctx.SaveChanges();
             return userOgKunder;
         }
-        public decimal? UpdatePenge(User user, Kunder kunder)
+        public decimal? UpdatePenge(User user)
         {
             var antalKunder = _ctx.UserKunders.Where(x => x.User.UserId == user.UserId);
-            decimal? startPenge = 100;
-            int? alleKunder = 0;
+            decimal? startPenge = user.Penge;
+            int? alleKunder = 1;
 
             foreach (var item in antalKunder)
             {
-                alleKunder += item.Antal;
+                if (item.Antal >0)
+                {
+                    alleKunder += item.Antal;
+                }                
             }
 
             decimal? belob = startPenge * alleKunder;
