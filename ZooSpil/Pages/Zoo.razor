@@ -2,11 +2,15 @@
 @inject ServiceLayer.servises.IZooService zooService
 @inject NavigationManager navigationManager
 @inject ServiceLayer.servises.IZooService zooService
-@using System.Threading;
+@using System.Timers;
+@using System.Threading.Tasks;
+
 
 <h3>Zoo</h3>
 
 @AntalPenge
+
+
 
 @code {
     [Parameter]
@@ -15,17 +19,17 @@
     public DataLayer.Entitys.User User { get; set; }
     #region Penge
 
-    decimal? AntalPenge { get; set; }
+    public decimal? AntalPenge { get; set; }
 
     TimeSpan PengeTid;
-    TimeSpan defaultTid = new TimeSpan(0, 0, 1);
-    Timer PengeTimer;
+    TimeSpan defaultTid = new TimeSpan(365, 0, 0, 1);
+    private static Timer PengeTimer;
     #endregion
 
 
 
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         User = zooService.LoadUser(UserId);
         StartTimer();
@@ -33,47 +37,23 @@
 
     }
 
-    private Task<int> StartTimer()
+    public void StartTimer()
     {
 
-        AntalPenge = User.Penge;
+        Task.Delay(1000);
+        Timer();
+    }
 
-        PengeTid = defaultTid;
-
-        PengeTid { }
-
-        do
+    async Task Timer()
+    {
+        while (defaultTid > new TimeSpan())
         {
-            PengeTimer = new Timer((_) =>
-            {
-                PengeTid = PengeTid.Add(new TimeSpan(0, 0, -1));
-
-                InvokeAsync(() =>
-                {
-                    StateHasChanged();
-                    AntalPenge = zooService.UpdatePenge(User);
-
-                });
-            });
-
-            PengeTimer.Change(0, 1000);
-        } while (true);
-
-
-
-
-        return null;
+            await Task.Delay(1000);
+            defaultTid = defaultTid.Subtract(new TimeSpan(0, 0, 0, 1));
+            AntalPenge = await zooService.UpdatePenge(User);
+            StateHasChanged();
+        }
+        StateHasChanged();
     }
 }
 
-@*PengeTimer = new Timer((_) =>
-            {
-                PengeTid = PengeTid.Add(new TimeSpan(0, 0, -1));
-
-                InvokeAsync(() =>
-                {
-                    StateHasChanged();
-                    AntalPenge = zooService.UpdatePenge(User);
-
-                });
-            });*@

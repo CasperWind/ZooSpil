@@ -1,4 +1,5 @@
 ﻿using DataLayer.Entitys;
+using System.Threading.Tasks;
 
 namespace ServiceLayer.servises
 {
@@ -10,6 +11,6 @@ namespace ServiceLayer.servises
         User LoadUser(string ID);
         User NewUser(string Navn, string NyId);
         bool TjekOmKanKoobe(User user, Dyr dyr);
-        decimal? UpdatePenge(User user);
+        Task<decimal?> UpdatePenge(User user);
     }
 }

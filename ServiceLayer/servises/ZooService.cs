@@ -10,7 +10,7 @@ namespace ServiceLayer.servises
 {
     public class ZooService : IZooService
     {
-        
+
 
         private readonly ZooContext _ctx;
         public ZooService(ZooContext ctx)
@@ -83,21 +83,23 @@ namespace ServiceLayer.servises
             _ctx.SaveChanges();
             return userOgKunder;
         }
-        public decimal? UpdatePenge(User user)
+        public async Task<decimal?> UpdatePenge(User user)
         {
             var antalKunder = _ctx.UserKunders.Where(x => x.User.UserId == user.UserId);
             decimal? startPenge = user.Penge;
-            int? alleKunder = 1;
+            int? alleKunder = 2;
 
             foreach (var item in antalKunder)
             {
-                if (item.Antal >0)
+                if (item.Antal > 0)
                 {
                     alleKunder += item.Antal;
-                }                
+                }
             }
 
             decimal? belob = startPenge * alleKunder;
+            user.Penge = (decimal)belob;
+            _ctx.SaveChanges();
             return belob;
 
         }
