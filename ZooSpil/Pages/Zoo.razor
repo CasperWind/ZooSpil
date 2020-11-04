@@ -5,10 +5,72 @@
 
 
 
-<h3>Zoo</h3>
-@User.Navn
+<h3 class="text-center">@User.Navn</h3>
+<div class="container">
+    <div class="row">
+        <div class="col text-right">
+            @User.Penge.ToString("c")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <h3>🐊</h3>
+            <p>Antal: @KrokodilleAntal </p>
+        </div>
+        <div class="col-4">
+            <h3>🦁</h3>
+            <p>Antal: @LøveAntal </p>
+        </div>
+        <div class="col-4">
+            <h3>🐘</h3>
+            <p>Antal: @ElefantAntal </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <h3>🐧</h3>
+            <p>Antal: @PingvinAntal</p>
+        </div>
+        <div class="col-4">
+            <h3>🐉</h3>
+            <p>Antal: @DrageAntal</p>
+        </div>
+        <div class="col-4">
+            <h3>🐯</h3>
+            <p>Antal: @TigerAntal</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <h3>🐊</h3>
+            <button class="btn btn-primary" @onclick="(() => KøbEtDyr(1)) ">Køb</button>
+        </div>
+        <div class="col-4">
+            <h3>🦁</h3>
+            <button class="btn btn-primary" @onclick="(() => KøbEtDyr(2)) ">Køb</button>
+        </div>
+        <div class="col-4">
+            <h3>🐘</h3>
+            <button class="btn btn-primary" @onclick="(() => KøbEtDyr(3)) ">Køb</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <h3>🐧</h3>
+            <button class="btn btn-primary" @onclick="(() => KøbEtDyr(4)) ">Køb</button>
+        </div>
+        <div class="col-4">
+            <h3>🐉</h3>
+            <button class="btn btn-primary" @onclick="(() => KøbEtDyr(5)) ">Køb</button>
+        </div>
+        <div class="col-4">
+            <h3>🐯</h3>
+            <button class="btn btn-primary" @onclick="(() => KøbEtDyr(6)) ">Køb</button>
+        </div>
+    </div>
+</div>
 
-@AntalPenge
+
 
 
 

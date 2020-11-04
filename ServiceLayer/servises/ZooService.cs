@@ -1,5 +1,7 @@
 ﻿using DataLayer;
 using DataLayer.Entitys;
+using Microsoft.EntityFrameworkCore;
+using ServiceLayer.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,8 @@ namespace ServiceLayer.servises
 {
     public class ZooService : IZooService
     {
-
+        public decimal? Prisen { get; set; }
+        public List<UserDTO> UserDTOs { get; set; }
 
         private readonly ZooContext _ctx;
         public ZooService(ZooContext ctx)
@@ -86,8 +89,9 @@ namespace ServiceLayer.servises
         public async Task<decimal?> UpdatePenge(User user)
         {
             var antalKunder = _ctx.UserKunders.Where(x => x.User.UserId == user.UserId);
-            decimal? startPenge = user.Penge;
-            int? alleKunder = 2;
+            decimal? startPenge = user.Penge / 2;
+            decimal? alleKunder = 2;
+            decimal? filter = (decimal?)0.20;
 
             foreach (var item in antalKunder)
             {
@@ -96,19 +100,46 @@ namespace ServiceLayer.servises
                     alleKunder += item.Antal;
                 }
             }
-
+            alleKunder *= filter;
             decimal? belob = startPenge * alleKunder;
-            user.Penge = (decimal)belob;
+            belob = Math.Round((decimal)belob, 2);
+            user.Penge += (decimal)belob;
             return belob;
 
         }
         public bool TjekOmKanKoobe(User user, Dyr dyr)
         {
-            if (user.Penge >= dyr.Pris)
+            
+            var beregnprisen = _ctx.UserDyrs.Where(x => x.UserId == user.UserId && x.DyrId == dyr.DyrId).FirstOrDefault();
+            if (beregnprisen == null && user.Penge >= 10000)
             {
+                user.Penge -= dyr.Pris;
+
+                return true;
+            }
+            if (beregnprisen != null)
+            {
+                Prisen = dyr.Pris * beregnprisen.Antal;
+            }            
+            if (user.Penge >= Prisen)
+            {
+                user.Penge -= (decimal)Prisen;
                 return true;
             }
             return false;
+        }
+        public List<User> GetAllInfo(User user, int dyrID)
+        {
+            return _ctx.Users
+                    .Include(p => p.userDyrs)
+                    .ThenInclude(p => p.Dyr)
+                    .Include(P => P.UserKunders)
+                    .ThenInclude(P => P.Kunder)
+                    .ToList();
+        }
+        public Dyr getdyrbyid(int id)
+        {
+            return _ctx.Dyrs.Where(x => x.DyrId == id).FirstOrDefault();
         }
     }
 }
