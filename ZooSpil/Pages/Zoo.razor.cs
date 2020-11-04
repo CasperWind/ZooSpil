@@ -54,6 +54,11 @@ namespace ZooSpil.Pages
         }
         #endregion
 
+        #region Kunder
 
+        #endregion
+        #region Dyr
+
+        #endregion
     }
 }
