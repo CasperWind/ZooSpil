@@ -28,6 +28,7 @@
     protected override void OnInitialized()
     {
         User = zooService.LoadUser(UserId);
+        StartTimer();
 
 
     }
@@ -39,19 +40,40 @@
 
         PengeTid = defaultTid;
 
-        PengeTimer = new Timer((_) =>
+        PengeTid { }
+
+        do
         {
-            PengeTid = PengeTid.Add(new TimeSpan(0, 0, -1));
-
-            InvokeAsync(() =>
+            PengeTimer = new Timer((_) =>
             {
-                StateHasChanged();
-                AntalPenge = zooService.UpdatePenge(User);
+                PengeTid = PengeTid.Add(new TimeSpan(0, 0, -1));
 
+                InvokeAsync(() =>
+                {
+                    StateHasChanged();
+                    AntalPenge = zooService.UpdatePenge(User);
+
+                });
             });
-        });
 
-        PengeTimer.Change(0, 1000);
-        
+            PengeTimer.Change(0, 1000);
+        } while (true);
+
+
+
+
+        return null;
     }
 }
+
+@*PengeTimer = new Timer((_) =>
+            {
+                PengeTid = PengeTid.Add(new TimeSpan(0, 0, -1));
+
+                InvokeAsync(() =>
+                {
+                    StateHasChanged();
+                    AntalPenge = zooService.UpdatePenge(User);
+
+                });
+            });*@
