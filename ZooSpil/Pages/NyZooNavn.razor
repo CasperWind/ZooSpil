@@ -2,13 +2,13 @@
 @inject ServiceLayer.servises.IZooService zooService
 @inject NavigationManager navigationManager
 @inject IJSRuntime JS
-<h3>NyZooNavn</h3>
+<h3 class="text-center">Ny Zoo! 🐘</h3>
 
 <div class="container">
-    <div>
-        <h1>Velkomme</h1>
+    <div class="text-center">
+        <h1>Velkommen</h1>
         <p>Du skal til at begynde din helt egen Zoo.</p>
-        <p>Hvad skal snvnet være på din zoo?</p>
+        <p>Hvad skal navnet være på din zoo?</p>
         <input type="text" @bind="ZooNavn" />
         <button class="btn btn-primary" @onclick="LavNyUser">Lav Zooen</button>
     </div>

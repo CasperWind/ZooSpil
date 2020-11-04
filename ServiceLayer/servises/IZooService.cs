@@ -8,7 +8,6 @@ namespace ServiceLayer.servises
     public interface IZooService
     {
         List<UserDTO> UserDTOs { get; set; }
-
         UserKunder AddKunder(User user, Kunder kunder);
         int Commit();
         List<User> GetAllInfo(User user, int dyrID);

@@ -89,7 +89,7 @@ namespace ServiceLayer.servises
         public async Task<decimal?> UpdatePenge(User user)
         {
             var antalKunder = _ctx.UserKunders.Where(x => x.User.UserId == user.UserId);
-            decimal? startPenge = user.Penge / 2;
+            decimal? startPenge = user.Penge / 9;
             decimal? alleKunder = 2;
             decimal? filter = (decimal?)0.20;
 
