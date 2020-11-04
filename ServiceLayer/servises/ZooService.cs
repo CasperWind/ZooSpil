@@ -99,7 +99,6 @@ namespace ServiceLayer.servises
 
             decimal? belob = startPenge * alleKunder;
             user.Penge = (decimal)belob;
-            _ctx.SaveChanges();
             return belob;
 
         }
