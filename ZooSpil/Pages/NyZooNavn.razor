@@ -1,6 +1,7 @@
 ﻿@page "/NytNavn"
 @inject ServiceLayer.servises.IZooService zooService
 @inject NavigationManager navigationManager
+@inject IJSRuntime JS
 <h3>NyZooNavn</h3>
 
 <div class="container">
@@ -24,10 +25,11 @@
     {
         Guid obj = Guid.NewGuid();
         var getNewUser = zooService.NewUser(ZooNavn, obj.ToString());
-        if ( getNewUser != null)
+        if (getNewUser != null)
         {
             string sendId = getNewUser.UserId;
-            navigationManager.NavigateTo("/Zoo/" + sendId);            
+            JS.InvokeAsync<string>("jvjBlazorExtensions.WriteCookie", "ZooId", sendId);
+            navigationManager.NavigateTo("/Zoo/" + sendId);
         }
 
     }

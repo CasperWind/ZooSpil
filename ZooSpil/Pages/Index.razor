@@ -30,7 +30,7 @@
 
     public string ID { get; set; }
 
-    public bool IsDisabled = true; 
+    public bool IsDisabled = true;
 
     public void NyZoo()
     {
@@ -40,12 +40,25 @@
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         ID = await JS.InvokeAsync<string>("jvjBlazorExtensions.ReadCookie", "ZooId");
+
         if (!string.IsNullOrEmpty(ID))
         {
             IsDisabled = false;
+            StateHasChanged();
         }
-       
     }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+
+
+        IsDisabled = true;
+
+
+    }
+
 
     public async Task<string> ReadCookieAsync()
     {
