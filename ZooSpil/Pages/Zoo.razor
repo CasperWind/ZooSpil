@@ -2,8 +2,7 @@
 @inject ServiceLayer.servises.IZooService zooService
 @inject NavigationManager navigationManager
 @inject ServiceLayer.servises.IZooService zooService
-@using System.Timers;
-@using System.Threading.Tasks;
+
 
 
 <h3>Zoo</h3>
@@ -14,47 +13,6 @@
 
 
 @code {
-    [Parameter]
-    public string UserId { get; set; }
-
-    public DataLayer.Entitys.User User { get; set; }
-    #region Penge
-
-    public decimal? AntalPenge { get; set; }
-
-    TimeSpan PengeTid;
-    TimeSpan defaultTid = new TimeSpan(365, 0, 0, 1);
-    private static Timer PengeTimer;
-    #endregion
-
-
-
-
-    protected override async Task OnInitializedAsync()
-    {
-        User = zooService.LoadUser(UserId);
-        StartTimer();
-
-
-    }
-
-    public void StartTimer()
-    {
-
-        Task.Delay(1000);
-        Timer();
-    }
-
-    async Task Timer()
-    {
-        while (defaultTid > new TimeSpan())
-        {
-            await Task.Delay(1000);
-            defaultTid = defaultTid.Subtract(new TimeSpan(0, 0, 0, 1));
-            AntalPenge = await zooService.UpdatePenge(User);
-            StateHasChanged();
-        }
-        StateHasChanged();
-    }
+   
 }
 
