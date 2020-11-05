@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(ZooContext))]
-    [Migration("20201105081411_emiots")]
-    partial class emiots
+    [Migration("20201105203927_nyigen")]
+    partial class nyigen
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -95,17 +95,17 @@ namespace DataLayer.Migrations
                         new
                         {
                             KundeId = 1,
-                            Navn = "Famile"
+                            Navn = "U+1F46A"
                         },
                         new
                         {
                             KundeId = 2,
-                            Navn = "Par"
+                            Navn = "U+1F491"
                         },
                         new
                         {
                             KundeId = 3,
-                            Navn = "Unge"
+                            Navn = "U+1F466"
                         });
                 });
 

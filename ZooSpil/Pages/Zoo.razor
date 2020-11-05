@@ -52,13 +52,14 @@
     <div class="row">
         @foreach (var item in KundeListe)
         {
-        <div class="col-4">
-            <h6>@item.Kunder.Navn : @item.Antal</h6>
-        </div>
+            <div class="col-4 text-center" style="padding:5px">
+                <h6>@item.Kunder?.KundeId : @item.Antal</h6>
+            </div>
         }
     </div>
-</div>
-
+    
+</div> 
+       
 <footer>
     <button @onclick="Cheat">.</button>
 </footer>

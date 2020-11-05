@@ -2,7 +2,7 @@
 
 namespace DataLayer.Migrations
 {
-    public partial class nydb : Migration
+    public partial class nyigen : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -102,12 +102,12 @@ namespace DataLayer.Migrations
                 columns: new[] { "DyrId", "Navn", "Pris" },
                 values: new object[,]
                 {
-                    { 1, "Elefant", 10000m },
-                    { 2, "Abe", 10000m },
-                    { 3, "Tiger", 10000m },
-                    { 4, "Løve", 10000m },
-                    { 5, "Flodhest", 10000m },
-                    { 6, "Dovendyr", 10000m }
+                    { 1, "🐊", 10000m },
+                    { 2, "🦁", 10000m },
+                    { 3, "🐘", 10000m },
+                    { 4, "🐧", 10000m },
+                    { 5, "🐉", 10000m },
+                    { 6, "🐯", 10000m }
                 });
 
             migrationBuilder.InsertData(
@@ -115,9 +115,9 @@ namespace DataLayer.Migrations
                 columns: new[] { "KundeId", "Navn" },
                 values: new object[,]
                 {
-                    { 1, "Famile" },
-                    { 2, "Par" },
-                    { 3, "Unge" }
+                    { 1, "U+1F46A" },
+                    { 2, "U+1F491" },
+                    { 3, "U+1F466" }
                 });
 
             migrationBuilder.CreateIndex(

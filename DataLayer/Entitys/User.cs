@@ -13,7 +13,7 @@ namespace DataLayer.Entitys
 
 
 
-        public ICollection<UserDyr> userDyrs { get; set; }
+        public ICollection<UserDyr> UserDyrs { get; set; }
         public ICollection<UserKunder>  UserKunders { get; set; }
 
     }

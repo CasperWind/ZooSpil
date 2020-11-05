@@ -51,9 +51,9 @@ namespace DataLayer
                 );
 
             modelBuilder.Entity<Kunder>().HasData(
-                new Kunder { KundeId = 1, Navn = "👪" },
-                new Kunder { KundeId = 2, Navn = "👫" },
-                new Kunder { KundeId = 3, Navn = "👦" }
+                new Kunder { KundeId = 1, Navn = "U+1F46A" },
+                new Kunder { KundeId = 2, Navn = "U+1F491" },
+                new Kunder { KundeId = 3, Navn = "U+1F466" }
                 );
         }
     }

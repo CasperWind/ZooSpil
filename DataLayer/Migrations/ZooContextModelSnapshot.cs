@@ -93,17 +93,17 @@ namespace DataLayer.Migrations
                         new
                         {
                             KundeId = 1,
-                            Navn = "👪"
+                            Navn = "U+1F46A"
                         },
                         new
                         {
                             KundeId = 2,
-                            Navn = "👫"
+                            Navn = "U+1F491"
                         },
                         new
                         {
                             KundeId = 3,
-                            Navn = "👦"
+                            Navn = "U+1F466"
                         });
                 });
 

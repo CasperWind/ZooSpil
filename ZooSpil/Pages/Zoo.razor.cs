@@ -82,8 +82,9 @@ namespace ZooSpil.Pages
         }
         public void Loadallinfo()
         {
-            Dyrliste = zooService.GetAllDyrFromUser(User);
             KundeListe = zooService.GetAllKunderFromUser(User);
+            Dyrliste = zooService.GetAllDyrFromUser(User);
+            
         }
         #endregion
 

@@ -72,20 +72,23 @@ namespace ServiceLayer.servises
         public UserKunder AddKunder(User user, int kunderId)
         {
             UserKunder userOgKunder = _ctx.UserKunders.Where(u => u.UserID == user.UserId && u.KundeId == kunderId).FirstOrDefault();
+            Random randomKunder = new Random();
 
-            if (userOgKunder == null)
+            switch (userOgKunder.KundeId)
             {
-                userOgKunder = new UserKunder()
-                {
-                    UserID = user.UserId,
-                    KundeId = kunderId,
-                    Antal = 1
-                };
-                _ctx.Add(userOgKunder);
-                _ctx.SaveChanges();
-                return userOgKunder;
+                case 1:
+                    userOgKunder.Antal += randomKunder.Next(1, 3);
+                    break;
+                case 2:
+                    userOgKunder.Antal += randomKunder.Next(4, 7);
+                    break;
+                case 3:
+                    userOgKunder.Antal += randomKunder.Next(2, 4);
+                    break;
+                default:
+                    break;
             }
-            userOgKunder.Antal += 1;
+
             _ctx.SaveChanges();
             return userOgKunder;
         }
@@ -93,20 +96,18 @@ namespace ServiceLayer.servises
         {
             var antalKunder = _ctx.UserKunders.Where(x => x.User.UserId == user.UserId);
             decimal? startPenge = user.Penge / 9;
-            decimal? alleKunder = (decimal?)2;
+            decimal? alleKunder = antalKunder.Sum(x => x.Antal);
             decimal? filter = (decimal?)0.20;
             Random randomKunder = new Random();
-            foreach (var item in antalKunder)
+            if (alleKunder != 0)
             {
-                if (item.Antal > 0)
-                {
-                    alleKunder += item.Antal;
-                }
+                alleKunder *= filter;
+                decimal? belob = 250 * alleKunder;
+                user.Penge += (decimal)belob;
+                return belob;
             }
-            alleKunder *= filter;
-            decimal? belob = startPenge * alleKunder;
-            user.Penge += (decimal)belob;
-            return belob;
+            return user.Penge;
+
 
         }
         public bool TjekOmKanKoobe(User user, Dyr dyr)
@@ -145,15 +146,17 @@ namespace ServiceLayer.servises
         }
         public void ADMINMODE(User user)
         {
-            user.Penge += 100000000;
+            user.Penge += 1000000;
             _ctx.SaveChanges();
         }
         public List<UserKunder> GetAllKunderFromUser(User user)
         {
-            return _ctx.UserKunders
+            var kundetest = _ctx.UserKunders
                 .Include(x => x.Kunder)
                 .Where(x => x.UserID == user.UserId)
                 .ToList();
+
+            return kundetest;
         }
     }
 }
