@@ -38,9 +38,13 @@ namespace ServiceLayer.servises
             userDyr.Add(new UserDyr { UserId = NyId, DyrId = 4, Antal = 0 });
             userDyr.Add(new UserDyr { UserId = NyId, DyrId = 5, Antal = 0 });
             userDyr.Add(new UserDyr { UserId = NyId, DyrId = 6, Antal = 0 });
+
             _ctx.UserDyrs.AddRange(userDyr);
-
-
+            List<UserKunder> userKunders = new List<UserKunder>();
+            userKunders.Add(new UserKunder { UserID = NyId, KundeId = 1, Antal = 0 });
+            userKunders.Add(new UserKunder { UserID = NyId, KundeId = 2, Antal = 0 });
+            userKunders.Add(new UserKunder { UserID = NyId, KundeId = 3, Antal = 0 });
+            _ctx.UserKunders.AddRange(userKunders);
 
             _ctx.SaveChanges();
             return newUser;
@@ -65,16 +69,16 @@ namespace ServiceLayer.servises
             return userOgDyr;
         }
 
-        public UserKunder AddKunder(User user, Kunder kunder)
+        public UserKunder AddKunder(User user, int kunderId)
         {
-            UserKunder userOgKunder = _ctx.UserKunders.Where(u => u.UserID == user.UserId && u.KundeId == kunder.KundeId).FirstOrDefault();
+            UserKunder userOgKunder = _ctx.UserKunders.Where(u => u.UserID == user.UserId && u.KundeId == kunderId).FirstOrDefault();
 
             if (userOgKunder == null)
             {
                 userOgKunder = new UserKunder()
                 {
                     UserID = user.UserId,
-                    KundeId = kunder.KundeId,
+                    KundeId = kunderId,
                     Antal = 1
                 };
                 _ctx.Add(userOgKunder);
@@ -91,7 +95,7 @@ namespace ServiceLayer.servises
             decimal? startPenge = user.Penge / 9;
             decimal? alleKunder = (decimal?)2;
             decimal? filter = (decimal?)0.20;
-
+            Random randomKunder = new Random();
             foreach (var item in antalKunder)
             {
                 if (item.Antal > 0)
@@ -100,7 +104,7 @@ namespace ServiceLayer.servises
                 }
             }
             alleKunder *= filter;
-            decimal? belob = startPenge * alleKunder;            
+            decimal? belob = startPenge * alleKunder;
             user.Penge += (decimal)belob;
             return belob;
 
@@ -129,10 +133,10 @@ namespace ServiceLayer.servises
         public List<UserDyr> GetAllDyrFromUser(User user)
         {
             return _ctx.UserDyrs
-                .Include(x=>x.Dyr)
-                .Where(x=>x.UserId == user.UserId)
+                .Include(x => x.Dyr)
+                .Where(x => x.UserId == user.UserId)
                 .ToList();
-            
+
 
         }
         public Dyr getdyrbyid(int id)
@@ -143,6 +147,13 @@ namespace ServiceLayer.servises
         {
             user.Penge += 100000000;
             _ctx.SaveChanges();
+        }
+        public List<UserKunder> GetAllKunderFromUser(User user)
+        {
+            return _ctx.UserKunders
+                .Include(x => x.Kunder)
+                .Where(x => x.UserID == user.UserId)
+                .ToList();
         }
     }
 }

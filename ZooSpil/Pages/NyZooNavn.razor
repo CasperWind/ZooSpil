@@ -2,6 +2,7 @@
 @inject ServiceLayer.servises.IZooService zooService
 @inject NavigationManager navigationManager
 @inject IJSRuntime JS
+@using System.ComponentModel.DataAnnotations
 <h3 class="text-center">Ny Zoo! 🐘</h3>
 
 <div class="container">
@@ -17,7 +18,7 @@
 
 
 @code {
-
+    
     public string ZooNavn { get; set; }
 
 

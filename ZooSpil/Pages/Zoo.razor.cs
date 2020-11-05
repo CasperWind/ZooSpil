@@ -20,6 +20,7 @@ namespace ZooSpil.Pages
         public int? KrokodilleAntal { get; set; }
         
         public List<UserDyr> Dyrliste { get; set; }
+        public List<UserKunder> KundeListe { get; set; }
 
         #endregion
 
@@ -74,6 +75,7 @@ namespace ZooSpil.Pages
             if (zooService.TjekOmKanKoobe(User, fundetdyr))
             {
                 zooService.KobDyr(User, fundetdyr);
+                KundeUpdate(dyrId);
                 Loadallinfo();
             }
             
@@ -81,13 +83,40 @@ namespace ZooSpil.Pages
         public void Loadallinfo()
         {
             Dyrliste = zooService.GetAllDyrFromUser(User);
-            
+            KundeListe = zooService.GetAllKunderFromUser(User);
         }
         #endregion
 
         public void Cheat()
         {
             zooService.ADMINMODE(User);
+        }
+        public void KundeUpdate(int dyrId)
+        {
+            switch (dyrId)
+            {
+                case 1:
+                    zooService.AddKunder(User, 1);
+                    break;
+                case 2:
+                    zooService.AddKunder(User, 1);
+                    break;
+                case 3:
+                    zooService.AddKunder(User, 3);
+                    break;
+                case 4:
+                    zooService.AddKunder(User, 1);
+                    break;
+                case 5:
+                    zooService.AddKunder(User, 2);
+                    break;
+                case 6:
+                    zooService.AddKunder(User, 3);
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 }

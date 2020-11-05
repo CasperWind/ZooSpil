@@ -15,65 +15,47 @@
     <div class="row">
         @foreach (var item in Dyrliste)
         {
-        <div class="col-4">
-            <h3>@item.Dyr?.Navn</h3>
-            <p>@item.Antal</p>
+        <div class="col-4 ">
+            <h3 style="padding:5px" class="text-center">@item.Dyr?.Navn</h3>
+            <p style="padding:5px" class="text-center">Antal: @item.Antal</p>
         </div>        
+        }        
+    </div>
+    <div class="row">
+        <div class="col-4 text-center" style="padding:5px">
+            <h3 style="padding:5px">🐊</h3>
+            <button class="btn btn-primary" style="padding:5px" @onclick="(() => KøbEtDyr(1)) ">Køb</button>
+        </div>
+        <div class="col-4 text-center" style="padding:5px">
+            <h3 style="padding:5px">🦁</h3>
+            <button class="btn btn-primary" style="padding:5px" @onclick="(() => KøbEtDyr(2)) ">Køb</button>
+        </div>
+        <div class="col-4 text-center" style="padding:5px">
+            <h3 style="padding:5px">🐘</h3>
+            <button class="btn btn-primary" style="padding:5px" @onclick="(() => KøbEtDyr(3)) ">Køb</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 text-center" style="padding:5px">
+            <h3 style="padding:5px">🐧</h3>
+            <button class="btn btn-primary" style="padding:5px" @onclick="(() => KøbEtDyr(4)) ">Køb</button>
+        </div>
+        <div class="col-4 text-center" style="padding:5px">
+            <h3 style="padding:5px">🐉</h3>
+            <button class="btn btn-primary" style="padding:5px" @onclick="(() => KøbEtDyr(5)) ">Køb</button>
+        </div>
+        <div class="col-4 text-center" style="padding:5px">
+            <h3 style="padding:5px">🐯</h3>
+            <button class="btn btn-primary" style="padding:5px" @onclick="(() => KøbEtDyr(6)) ">Køb</button>
+        </div>
+    </div>
+    <div class="row">
+        @foreach (var item in KundeListe)
+        {
+        <div class="col-4">
+            <h6>@item.Kunder.Navn : @item.Antal</h6>
+        </div>
         }
-        @*<div class="col-4">
-            <h3>🐊</h3>
-            <p>Antal: @KrokodilleAntal </p>
-        </div>*@
-        @*<div class="col-4">
-            <h3>🦁</h3>
-            <p>Antal: @LøveAntal </p>
-        </div>
-        <div class="col-4">
-            <h3>🐘</h3>
-            <p>Antal: @ElefantAntal </p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">
-            <h3>🐧</h3>
-            <p>Antal: @PingvinAntal</p>
-        </div>
-        <div class="col-4">
-            <h3>🐉</h3>
-            <p>Antal: @DrageAntal</p>
-        </div>
-        <div class="col-4">
-            <h3>🐯</h3>
-            <p>Antal: @TigerAntal</p>
-        </div>*@
-    </div>
-    <div class="row">
-        <div class="col-4">
-            <h3>🐊</h3>
-            <button class="btn btn-primary" @onclick="(() => KøbEtDyr(1)) ">Køb</button>
-        </div>
-        <div class="col-4">
-            <h3>🦁</h3>
-            <button class="btn btn-primary" @onclick="(() => KøbEtDyr(2)) ">Køb</button>
-        </div>
-        <div class="col-4">
-            <h3>🐘</h3>
-            <button class="btn btn-primary" @onclick="(() => KøbEtDyr(3)) ">Køb</button>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">
-            <h3>🐧</h3>
-            <button class="btn btn-primary" @onclick="(() => KøbEtDyr(4)) ">Køb</button>
-        </div>
-        <div class="col-4">
-            <h3>🐉</h3>
-            <button class="btn btn-primary" @onclick="(() => KøbEtDyr(5)) ">Køb</button>
-        </div>
-        <div class="col-4">
-            <h3>🐯</h3>
-            <button class="btn btn-primary" @onclick="(() => KøbEtDyr(6)) ">Køb</button>
-        </div>
     </div>
 </div>
 

@@ -10,10 +10,11 @@ namespace ServiceLayer.servises
         decimal? Prisen { get; set; }
         List<UserDTO> UserDTOs { get; set; }
 
-        UserKunder AddKunder(User user, Kunder kunder);
+        UserKunder AddKunder(User user, int kunderId);
         void ADMINMODE(User user);
         int Commit();
         List<UserDyr> GetAllDyrFromUser(User user);
+        List<UserKunder> GetAllKunderFromUser(User user);
         Dyr getdyrbyid(int id);
         UserDyr KobDyr(User user, Dyr dyr);
         User LoadUser(string ID);
