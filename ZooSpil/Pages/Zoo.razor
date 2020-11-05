@@ -13,11 +13,18 @@
         </div>
     </div>
     <div class="row">
+        @foreach (var item in Dyrliste)
+        {
         <div class="col-4">
+            <h3>@item.Dyr?.Navn</h3>
+            <p>@item.Antal</p>
+        </div>        
+        }
+        @*<div class="col-4">
             <h3>🐊</h3>
             <p>Antal: @KrokodilleAntal </p>
-        </div>
-        <div class="col-4">
+        </div>*@
+        @*<div class="col-4">
             <h3>🦁</h3>
             <p>Antal: @LøveAntal </p>
         </div>
@@ -38,7 +45,7 @@
         <div class="col-4">
             <h3>🐯</h3>
             <p>Antal: @TigerAntal</p>
-        </div>
+        </div>*@
     </div>
     <div class="row">
         <div class="col-4">
@@ -69,6 +76,10 @@
         </div>
     </div>
 </div>
+
+<footer>
+    <button @onclick="Cheat">.</button>
+</footer>
 
 
 

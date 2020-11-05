@@ -31,6 +31,17 @@ namespace ServiceLayer.servises
                 Navn = Navn,
             };
             _ctx.Users.Add(newUser);
+            List<UserDyr> userDyr = new List<UserDyr>();
+            userDyr.Add(new UserDyr { UserId = NyId, DyrId = 1, Antal = 0 });
+            userDyr.Add(new UserDyr { UserId = NyId, DyrId = 2, Antal = 0 });
+            userDyr.Add(new UserDyr { UserId = NyId, DyrId = 3, Antal = 0 });
+            userDyr.Add(new UserDyr { UserId = NyId, DyrId = 4, Antal = 0 });
+            userDyr.Add(new UserDyr { UserId = NyId, DyrId = 5, Antal = 0 });
+            userDyr.Add(new UserDyr { UserId = NyId, DyrId = 6, Antal = 0 });
+            _ctx.UserDyrs.AddRange(userDyr);
+
+
+
             _ctx.SaveChanges();
             return newUser;
         }
@@ -49,18 +60,6 @@ namespace ServiceLayer.servises
         {
             UserDyr userOgDyr = _ctx.UserDyrs.Where(u => u.UserId == user.UserId && u.DyrId == dyr.DyrId).FirstOrDefault();
 
-            if (userOgDyr == null)
-            {
-                userOgDyr = new UserDyr()
-                {
-                    UserId = user.UserId,
-                    DyrId = dyr.DyrId,
-                    Antal = 1
-                };
-                _ctx.Add(userOgDyr);
-                _ctx.SaveChanges();
-                return userOgDyr;
-            }
             userOgDyr.Antal += 1;
             _ctx.SaveChanges();
             return userOgDyr;
@@ -90,7 +89,7 @@ namespace ServiceLayer.servises
         {
             var antalKunder = _ctx.UserKunders.Where(x => x.User.UserId == user.UserId);
             decimal? startPenge = user.Penge / 9;
-            decimal? alleKunder = 2;
+            decimal? alleKunder = (decimal?)2;
             decimal? filter = (decimal?)0.20;
 
             foreach (var item in antalKunder)
@@ -101,26 +100,25 @@ namespace ServiceLayer.servises
                 }
             }
             alleKunder *= filter;
-            decimal? belob = startPenge * alleKunder;
-            belob = Math.Round((decimal)belob, 2);
+            decimal? belob = startPenge * alleKunder;            
             user.Penge += (decimal)belob;
             return belob;
 
         }
         public bool TjekOmKanKoobe(User user, Dyr dyr)
         {
-            
+
             var beregnprisen = _ctx.UserDyrs.Where(x => x.UserId == user.UserId && x.DyrId == dyr.DyrId).FirstOrDefault();
-            if (beregnprisen == null && user.Penge >= 10000)
+            if (beregnprisen.Antal == 0 && user.Penge >= 10000)
             {
                 user.Penge -= dyr.Pris;
 
                 return true;
             }
-            if (beregnprisen != null)
+            if (beregnprisen != null && beregnprisen.Antal != 0)
             {
                 Prisen = dyr.Pris * beregnprisen.Antal;
-            }            
+            }
             if (user.Penge >= Prisen)
             {
                 user.Penge -= (decimal)Prisen;
@@ -128,18 +126,23 @@ namespace ServiceLayer.servises
             }
             return false;
         }
-        public List<User> GetAllInfo(User user, int dyrID)
+        public List<UserDyr> GetAllDyrFromUser(User user)
         {
-            return _ctx.Users
-                    .Include(p => p.userDyrs)
-                    .ThenInclude(p => p.Dyr)
-                    .Include(P => P.UserKunders)
-                    .ThenInclude(P => P.Kunder)
-                    .ToList();
+            return _ctx.UserDyrs
+                .Include(x=>x.Dyr)
+                .Where(x=>x.UserId == user.UserId)
+                .ToList();
+            
+
         }
         public Dyr getdyrbyid(int id)
         {
             return _ctx.Dyrs.Where(x => x.DyrId == id).FirstOrDefault();
+        }
+        public void ADMINMODE(User user)
+        {
+            user.Penge += 100000000;
+            _ctx.SaveChanges();
         }
     }
 }

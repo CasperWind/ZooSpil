@@ -18,11 +18,8 @@ namespace ZooSpil.Pages
         public decimal? AntalPenge { get; set; }
         TimeSpan defaultTid = new TimeSpan(365, 0, 0, 1);
         public int? KrokodilleAntal { get; set; }
-        public int? LøveAntal { get; set; }
-        public int? ElefantAntal { get; set; }
-        public int? PingvinAntal { get; set; }
-        public int? DrageAntal { get; set; }
-        public int? TigerAntal { get; set; }
+        
+        public List<UserDyr> Dyrliste { get; set; }
 
         #endregion
 
@@ -39,7 +36,8 @@ namespace ZooSpil.Pages
             Task.Delay(1000);
             Timer();
             TimerSave();
-            
+            Loadallinfo();
+
         }
 
         async Task Timer()
@@ -76,67 +74,20 @@ namespace ZooSpil.Pages
             if (zooService.TjekOmKanKoobe(User, fundetdyr))
             {
                 zooService.KobDyr(User, fundetdyr);
-                Loadallinfo(User);
+                Loadallinfo();
             }
             
         }
-        public void Loadallinfo(User user)
+        public void Loadallinfo()
         {
-            var krokodiller = user.userDyrs.Where(x => x.DyrId == 1).FirstOrDefault();
-            if (krokodiller == null)
-            {
-                KrokodilleAntal = 0;
-            }
-            else
-            {
-                KrokodilleAntal = krokodiller.Antal;
-            }
-            var løveAntal = user.userDyrs.Where(x => x.DyrId == 2).FirstOrDefault();
-            if (løveAntal == null)
-            {
-                LøveAntal = 0;
-            }
-            else
-            {
-                LøveAntal = løveAntal.Antal;
-            }
-            var elefantAntal = user.userDyrs.Where(x => x.DyrId == 3).FirstOrDefault();
-            if (elefantAntal == null)
-            {
-                ElefantAntal = 0;
-            }
-            else
-            {
-                ElefantAntal = elefantAntal.Antal;
-            }
-            var pingvinAntal = user.userDyrs.Where(x => x.DyrId == 4).FirstOrDefault();
-            if (pingvinAntal == null)
-            {
-                PingvinAntal = 0;
-            }
-            else
-            {
-                PingvinAntal = pingvinAntal.Antal;
-            }
-            var drageAntal = user.userDyrs.Where(x => x.DyrId == 5).FirstOrDefault();
-            if (drageAntal == null)
-            {
-                DrageAntal = 0;
-            }
-            else
-            {
-                DrageAntal = drageAntal.Antal;
-            }
-            var tigerAntal = user.userDyrs.Where(x => x.DyrId == 6).FirstOrDefault();
-            if (tigerAntal == null)
-            {
-                TigerAntal = 0;
-            }
-            else
-            {
-                TigerAntal = tigerAntal.Antal;
-            }
+            Dyrliste = zooService.GetAllDyrFromUser(User);
+            
         }
         #endregion
+
+        public void Cheat()
+        {
+            zooService.ADMINMODE(User);
+        }
     }
 }

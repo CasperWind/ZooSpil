@@ -7,10 +7,13 @@ namespace ServiceLayer.servises
 {
     public interface IZooService
     {
+        decimal? Prisen { get; set; }
         List<UserDTO> UserDTOs { get; set; }
+
         UserKunder AddKunder(User user, Kunder kunder);
+        void ADMINMODE(User user);
         int Commit();
-        List<User> GetAllInfo(User user, int dyrID);
+        List<UserDyr> GetAllDyrFromUser(User user);
         Dyr getdyrbyid(int id);
         UserDyr KobDyr(User user, Dyr dyr);
         User LoadUser(string ID);

@@ -42,12 +42,12 @@ namespace DataLayer
                 .HasKey(Key => new { Key.UserID, Key.KundeId });
 
             modelBuilder.Entity<Dyr>().HasData(
-                new Dyr { DyrId = 1, Pris = 10000, Navn = "Elefant" },
-                new Dyr { DyrId = 2, Pris = 10000, Navn = "Abe" },
-                new Dyr { DyrId = 3, Pris = 10000, Navn = "Tiger" },
-                new Dyr { DyrId = 4, Pris = 10000, Navn = "Løve" },
-                new Dyr { DyrId = 5, Pris = 10000, Navn = "Flodhest" },
-                new Dyr { DyrId = 6, Pris = 10000, Navn = "Dovendyr" }
+                new Dyr { DyrId = 1, Pris = 10000, Navn = "🐊" },
+                new Dyr { DyrId = 2, Pris = 10000, Navn = "🦁" },
+                new Dyr { DyrId = 3, Pris = 10000, Navn = "🐘" },
+                new Dyr { DyrId = 4, Pris = 10000, Navn = "🐧" },
+                new Dyr { DyrId = 5, Pris = 10000, Navn = "🐉" },
+                new Dyr { DyrId = 6, Pris = 10000, Navn = "🐯" }
                 );
 
             modelBuilder.Entity<Kunder>().HasData(
