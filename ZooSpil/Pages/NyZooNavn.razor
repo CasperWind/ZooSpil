@@ -10,15 +10,19 @@
         <h1>Velkommen</h1>
         <p>Du skal til at begynde din helt egen Zoo.</p>
         <p>Hvad skal navnet være på din zoo?</p>
+
         <input type="text" @bind="ZooNavn" />
-        <button class="btn btn-primary" @onclick="LavNyUser">Lav Zooen</button>
+        @if (!string.IsNullOrEmpty(ZooNavn))
+        {
+            <button class="btn btn-primary" @onclick="LavNyUser">Lav Zooen</button>
+        }
     </div>
 </div>
 
 
 
 @code {
-    
+    [Required]
     public string ZooNavn { get; set; }
 
 
