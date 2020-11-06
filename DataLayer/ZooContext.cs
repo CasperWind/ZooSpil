@@ -35,11 +35,13 @@ namespace DataLayer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
+
             modelBuilder.Entity<UserDyr>()
                 .HasKey(Key => new { Key.UserId, Key.DyrId });
 
             modelBuilder.Entity<UserKunder>()
-                .HasKey(Key => new { Key.UserID, Key.KundeId });
+                .HasKey(Key => new { Key.UserID, Key.KunderId });
 
             modelBuilder.Entity<Dyr>().HasData(
                 new Dyr { DyrId = 1, Pris = 10000, Navn = "🐊" },
@@ -51,9 +53,9 @@ namespace DataLayer
                 );
 
             modelBuilder.Entity<Kunder>().HasData(
-                new Kunder { KundeId = 1, Navn = "U+1F46A" },
-                new Kunder { KundeId = 2, Navn = "U+1F491" },
-                new Kunder { KundeId = 3, Navn = "U+1F466" }
+                new Kunder { KunderId = 1, Navn = "👪" },
+                new Kunder { KunderId = 2, Navn = "👫" },
+                new Kunder { KunderId = 3, Navn = "👦" }
                 );
         }
     }

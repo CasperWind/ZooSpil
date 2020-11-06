@@ -2,7 +2,7 @@
 
 namespace DataLayer.Migrations
 {
-    public partial class nyigen : Migration
+    public partial class medR : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,13 +24,13 @@ namespace DataLayer.Migrations
                 name: "Kunders",
                 columns: table => new
                 {
-                    KundeId = table.Column<int>(nullable: false)
+                    KunderId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Navn = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Kunders", x => x.KundeId);
+                    table.PrimaryKey("PK_Kunders", x => x.KunderId);
                 });
 
             migrationBuilder.CreateTable(
@@ -76,19 +76,18 @@ namespace DataLayer.Migrations
                 columns: table => new
                 {
                     UserID = table.Column<string>(nullable: false),
-                    KundeId = table.Column<int>(nullable: false),
-                    Antal = table.Column<int>(nullable: true),
-                    KunderKundeId = table.Column<int>(nullable: true)
+                    KunderId = table.Column<int>(nullable: false),
+                    Antal = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserKunders", x => new { x.UserID, x.KundeId });
+                    table.PrimaryKey("PK_UserKunders", x => new { x.UserID, x.KunderId });
                     table.ForeignKey(
-                        name: "FK_UserKunders_Kunders_KunderKundeId",
-                        column: x => x.KunderKundeId,
+                        name: "FK_UserKunders_Kunders_KunderId",
+                        column: x => x.KunderId,
                         principalTable: "Kunders",
-                        principalColumn: "KundeId",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "KunderId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserKunders_Users_UserID",
                         column: x => x.UserID,
@@ -112,7 +111,7 @@ namespace DataLayer.Migrations
 
             migrationBuilder.InsertData(
                 table: "Kunders",
-                columns: new[] { "KundeId", "Navn" },
+                columns: new[] { "KunderId", "Navn" },
                 values: new object[,]
                 {
                     { 1, "U+1F46A" },
@@ -126,9 +125,9 @@ namespace DataLayer.Migrations
                 column: "DyrId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserKunders_KunderKundeId",
+                name: "IX_UserKunders_KunderId",
                 table: "UserKunders",
-                column: "KunderKundeId");
+                column: "KunderId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

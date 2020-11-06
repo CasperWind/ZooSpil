@@ -5,7 +5,7 @@
 
 
 
-<h3 class="text-center">@User.Navn</h3>
+<h2 class="text-center">@User.Navn</h2>
 <div class="container">
     <div class="row">
         <div class="col text-right">
@@ -15,11 +15,11 @@
     <div class="row">
         @foreach (var item in Dyrliste)
         {
-        <div class="col-4 ">
-            <h3 style="padding:5px" class="text-center">@item.Dyr?.Navn</h3>
-            <p style="padding:5px" class="text-center">Antal: @item.Antal</p>
-        </div>        
-        }        
+            <div class="col-4 ">
+                <h3 style="padding:5px" class="text-center">@item.Dyr?.Navn</h3>
+                <p style="padding:5px" class="text-center">Antal: @item.Antal</p>
+            </div>
+        }
     </div>
     <div class="row">
         <div class="col-4 text-center" style="padding:5px">
@@ -50,14 +50,20 @@
         </div>
     </div>
     <div class="row">
+        <div class="text-center col-12">
+            <h2>Kunder</h2>
+        </div>
+    </div>
+    <div class="row">
+
         @foreach (var item in KundeListe)
         {
             <div class="col-4 text-center" style="padding:5px">
-                <h6>@item.Kunder?.KundeId : @item.Antal</h6>
+                <h6>@item.Kunder?.Navn : @item.Antal</h6>
             </div>
         }
     </div>
-    
+
 </div> 
        
 <footer>

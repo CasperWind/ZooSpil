@@ -7,8 +7,8 @@ namespace DataLayer.Entitys
 {
     public class Kunder
     {
-        [Key]
-        public int KundeId { get; set; }
+        
+        public int KunderId { get; set; }
         public string Navn { get; set; }
 
         public ICollection<UserKunder> UserKunders { get; set; }

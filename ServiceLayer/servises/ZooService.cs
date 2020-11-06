@@ -41,9 +41,9 @@ namespace ServiceLayer.servises
 
             _ctx.UserDyrs.AddRange(userDyr);
             List<UserKunder> userKunders = new List<UserKunder>();
-            userKunders.Add(new UserKunder { UserID = NyId, KundeId = 1, Antal = 0 });
-            userKunders.Add(new UserKunder { UserID = NyId, KundeId = 2, Antal = 0 });
-            userKunders.Add(new UserKunder { UserID = NyId, KundeId = 3, Antal = 0 });
+            userKunders.Add(new UserKunder { UserID = NyId, KunderId = 1, Antal = 0 });
+            userKunders.Add(new UserKunder { UserID = NyId, KunderId = 2, Antal = 0 });
+            userKunders.Add(new UserKunder { UserID = NyId, KunderId = 3, Antal = 0 });
             _ctx.UserKunders.AddRange(userKunders);
 
             _ctx.SaveChanges();
@@ -71,10 +71,10 @@ namespace ServiceLayer.servises
 
         public UserKunder AddKunder(User user, int kunderId)
         {
-            UserKunder userOgKunder = _ctx.UserKunders.Where(u => u.UserID == user.UserId && u.KundeId == kunderId).FirstOrDefault();
+            UserKunder userOgKunder = _ctx.UserKunders.Where(u => u.UserID == user.UserId && u.KunderId == kunderId).FirstOrDefault();
             Random randomKunder = new Random();
 
-            switch (userOgKunder.KundeId)
+            switch (userOgKunder.KunderId)
             {
                 case 1:
                     userOgKunder.Antal += randomKunder.Next(1, 3);

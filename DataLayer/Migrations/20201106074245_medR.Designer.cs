@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(ZooContext))]
-    [Migration("20201105203927_nyigen")]
-    partial class nyigen
+    [Migration("20201106074245_medR")]
+    partial class medR
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -79,7 +79,7 @@ namespace DataLayer.Migrations
 
             modelBuilder.Entity("DataLayer.Entitys.Kunder", b =>
                 {
-                    b.Property<int>("KundeId")
+                    b.Property<int>("KunderId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -87,24 +87,24 @@ namespace DataLayer.Migrations
                     b.Property<string>("Navn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("KundeId");
+                    b.HasKey("KunderId");
 
                     b.ToTable("Kunders");
 
                     b.HasData(
                         new
                         {
-                            KundeId = 1,
+                            KunderId = 1,
                             Navn = "U+1F46A"
                         },
                         new
                         {
-                            KundeId = 2,
+                            KunderId = 2,
                             Navn = "U+1F491"
                         },
                         new
                         {
-                            KundeId = 3,
+                            KunderId = 3,
                             Navn = "U+1F466"
                         });
                 });
@@ -148,18 +148,15 @@ namespace DataLayer.Migrations
                     b.Property<string>("UserID")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("KundeId")
+                    b.Property<int?>("KunderId")
                         .HasColumnType("int");
 
                     b.Property<int?>("Antal")
                         .HasColumnType("int");
 
-                    b.Property<int?>("KunderKundeId")
-                        .HasColumnType("int");
+                    b.HasKey("UserID", "KunderId");
 
-                    b.HasKey("UserID", "KundeId");
-
-                    b.HasIndex("KunderKundeId");
+                    b.HasIndex("KunderId");
 
                     b.ToTable("UserKunders");
                 });
@@ -173,7 +170,7 @@ namespace DataLayer.Migrations
                         .IsRequired();
 
                     b.HasOne("DataLayer.Entitys.User", "User")
-                        .WithMany("userDyrs")
+                        .WithMany("UserDyrs")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -183,7 +180,9 @@ namespace DataLayer.Migrations
                 {
                     b.HasOne("DataLayer.Entitys.Kunder", "Kunder")
                         .WithMany("UserKunders")
-                        .HasForeignKey("KunderKundeId");
+                        .HasForeignKey("KunderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DataLayer.Entitys.User", "User")
                         .WithMany("UserKunders")
